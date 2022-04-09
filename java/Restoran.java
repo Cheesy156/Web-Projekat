@@ -1,12 +1,17 @@
 package com.company;
 
-public class Restoran extends Artikal extends Lokacija {
+import java.util.ArrayList;
+
+public class Restoran {
     private String naziv;
     private String tipRestorana;
+    private ArrayList<Artikal> artikli;
+    private Lokacija lokacija;
 
-    public Restoran(String naziv, double cena, com.company.vrstaArtikla vrstaArtikla, String kolicina, com.company.mera mera, String opis, String naziv1, String tipRestorana) {
-        super(naziv, cena, vrstaArtikla, kolicina, mera, opis);
-        this.naziv = naziv1;
+    public Restoran(String naziv, String tipRestorana, ArrayList<Artikal> artikli, Lokacija lokacija) {
+        this.naziv = naziv;
         this.tipRestorana = tipRestorana;
+        this.artikli = artikli;
+        this.lokacija = lokacija;
     }
 }

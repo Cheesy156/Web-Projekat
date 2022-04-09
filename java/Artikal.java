@@ -19,4 +19,52 @@ public class Artikal {
         this.mera = mera;
         this.opis = opis;
     }
+
+    public String getNaziv() {
+        return naziv;
+    }
+
+    public void setNaziv(String naziv) {
+        this.naziv = naziv;
+    }
+
+    public double getCena() {
+        return cena;
+    }
+
+    public void setCena(double cena) {
+        this.cena = cena;
+    }
+
+    public com.company.vrstaArtikla getVrstaArtikla() {
+        return vrstaArtikla;
+    }
+
+    public void setVrstaArtikla(com.company.vrstaArtikla vrstaArtikla) {
+        this.vrstaArtikla = vrstaArtikla;
+    }
+
+    public String getKolicina() {
+        return kolicina;
+    }
+
+    public void setKolicina(String kolicina) {
+        this.kolicina = kolicina;
+    }
+
+    public com.company.mera getMera() {
+        return mera;
+    }
+
+    public void setMera(com.company.mera mera) {
+        this.mera = mera;
+    }
+
+    public String getOpis() {
+        return opis;
+    }
+
+    public void setOpis(String opis) {
+        this.opis = opis;
+    }
 }
