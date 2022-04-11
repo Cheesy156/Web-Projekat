@@ -1,17 +1,27 @@
-package com.company;
+package vezbe.demo.model;
+
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.io.Serial;
+import java.io.Serializable;
 
 enum vrstaArtikla{jelo, pice;}
 enum mera{grami, mililitri;}
 
-public class Artikal {
+public class Artikal implements Serializable {
     private String naziv;
     private double cena;
     private vrstaArtikla vrstaArtikla;
-    private String kolicina;
+    private int kolicina;
     private mera mera;
     private String opis;
 
-    public Artikal(String naziv, double cena, com.company.vrstaArtikla vrstaArtikla, String kolicina, com.company.mera mera, String opis) {
+    @ManyToOne
+    @JoinColumn(name = "restoran_id")
+    private Restoran restoran;
+
+    public Artikal(String naziv, double cena, vezbe.demo.model.vrstaArtikla vrstaArtikla, int kolicina, vezbe.demo.model.mera mera, String opis) {
         this.naziv = naziv;
         this.cena = cena;
         this.vrstaArtikla = vrstaArtikla;
@@ -36,27 +46,27 @@ public class Artikal {
         this.cena = cena;
     }
 
-    public com.company.vrstaArtikla getVrstaArtikla() {
+    public vezbe.demo.model.vrstaArtikla getVrstaArtikla() {
         return vrstaArtikla;
     }
 
-    public void setVrstaArtikla(com.company.vrstaArtikla vrstaArtikla) {
+    public void setVrstaArtikla(vezbe.demo.model.vrstaArtikla vrstaArtikla) {
         this.vrstaArtikla = vrstaArtikla;
     }
 
-    public String getKolicina() {
+    public int getKolicina() {
         return kolicina;
     }
 
-    public void setKolicina(String kolicina) {
+    public void setKolicina(int kolicina) {
         this.kolicina = kolicina;
     }
 
-    public com.company.mera getMera() {
+    public vezbe.demo.model.mera getMera() {
         return mera;
     }
 
-    public void setMera(com.company.mera mera) {
+    public void setMera(vezbe.demo.model.mera mera) {
         this.mera = mera;
     }
 
@@ -66,5 +76,17 @@ public class Artikal {
 
     public void setOpis(String opis) {
         this.opis = opis;
+    }
+
+    @Override
+    public String toString() {
+        return "Artikal{" +
+                "naziv='" + naziv + '\'' +
+                ", cena=" + cena +
+                ", vrstaArtikla=" + vrstaArtikla +
+                ", kolicina='" + kolicina + '\'' +
+                ", mera=" + mera +
+                ", opis='" + opis + '\'' +
+                '}';
     }
 }

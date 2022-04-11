@@ -1,20 +1,26 @@
-package com.company;
+package vezbe.demo.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
-enum Pol {Muski, Zenski}
-enum Uloga {Admin,Menadzer,Dostavljac,Kupac;}
-
 public class Korisnik {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String korisnickoIme;
     private String lozinka;
+
     private String ime;
     private String prezime;
-    private Pol pol;
+
+    private String pol;
     private Date datum_rodjenja;
     private Uloga uloga;
 
-    public Korisnik(String korisnickoIme, String lozinka, String ime, String prezime, Pol pol, Date datum_rodjenja, Uloga uloga) {
+    public Korisnik(String korisnickoIme, String lozinka, String ime, String prezime, String pol, Date datum_rodjenja, Uloga uloga) {
         this.korisnickoIme = korisnickoIme;
         this.lozinka = lozinka;
         this.ime = ime;
@@ -23,6 +29,10 @@ public class Korisnik {
         this.datum_rodjenja = datum_rodjenja;
         this.uloga = uloga;
     }
+
+    public Long getId() { return id; }
+
+    public void setId(Long id) { this.id = id; }
 
     public String getKorisnickoIme() {
         return korisnickoIme;
@@ -40,7 +50,7 @@ public class Korisnik {
         return prezime;
     }
 
-    public Pol getPol() {
+    public String getPol() {
         return pol;
     }
 
@@ -68,7 +78,7 @@ public class Korisnik {
         this.prezime = prezime;
     }
 
-    public void setPol(Pol pol) {
+    public void setPol(String pol) {
         this.pol = pol;
     }
 
