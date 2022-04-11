@@ -1,7 +1,7 @@
 package com.company;
 
-public interface TipKupca {
-    String Ime();
-    double Popust();
-    int Bodovi();
+class TipKupca {
+    private String ime;
+    private double popust;
+    private int trazeni_bodovi;
 }
