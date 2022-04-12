@@ -1,24 +1,31 @@
 package vezbe.demo.model;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
 enum status{obrada, u_pripremi, ceka_dostavljaca, u_transportu, dostavljena, otkazana;}
 
+@Entity
 public class Porudzbina implements Serializable {
+    @Id
     private String uniqueID = UUID.randomUUID().toString();
+
+    @OneToMany(mappedBy = "porudzbina", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Artikal> poruceni_Artikli;
+
+    @OneToOne
+    @JoinColumn(name = "restoran_id")
     private Restoran restoran;
 
-    LocalDateTime vreme = LocalDateTime.now();
-    DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-    String vreme_formatirano = vreme.format(format);
+    private Date vreme;
 
     private double cena;
     private String kupac; // korisnicko ime
@@ -29,13 +36,20 @@ public class Porudzbina implements Serializable {
     @JoinColumn(name = "dostavljac_id")
     private Dostavljac dostavljac;
 
-    public Porudzbina(String uniqueID, Set<Artikal> poruceni_Artikli, Restoran restoran, double cena, String kupac, vezbe.demo.model.status status) {
+    @OneToOne
+    @JoinColumn(name = "komentar_id")
+    private Komentar komentar;
+
+    public Porudzbina(String uniqueID, Set<Artikal> poruceni_Artikli, Restoran restoran, double cena, String kupac, vezbe.demo.model.status status, Dostavljac dostavljac) {
         this.uniqueID = uniqueID;
         this.poruceni_Artikli = poruceni_Artikli;
         this.restoran = restoran;
         this.cena = cena;
         this.kupac = kupac;
         this.status = status;
+    }
+
+    public Porudzbina() {
     }
 
     public String getUniqueID() {

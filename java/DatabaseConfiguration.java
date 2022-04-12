@@ -1,6 +1,5 @@
 package vezbe.demo.configuration;
 
-import jdk.jfr.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,19 +10,6 @@ import java.util.*;
 
 @Configuration
 public class DatabaseConfiguration {
-
-    @Autowired
-    private CompanyRepository companyRepository;
-
-    @Autowired
-    private DepartmentRepository departmentRepository;
-
-    @Autowired
-    private ProjectRepository projectRepository;
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
     @Autowired
     private KorisnikRepository korisnikRepository;
 
@@ -35,6 +21,7 @@ public class DatabaseConfiguration {
 
     @Autowired
     private MenadzerRepository menadzerRepository;
+
     @Bean
     public boolean instantiate(){
         Korisnik korisnik1 = new Korisnik("Username1", "Xd", "Ime1", "Prezime1", "Muski", new Date(125, Calendar.JULY, 14), Uloga.Kupac);

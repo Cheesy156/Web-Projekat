@@ -1,9 +1,12 @@
 package vezbe.demo.model;
 
+import javax.persistence.Entity;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-class TipKupca extends Kupac{
+@Entity
+class TipKupca extends Kupac implements Serializable {
     private String ime;
     private double popust;
     private int trazeni_bodovi;
@@ -13,6 +16,10 @@ class TipKupca extends Kupac{
         this.ime = ime1;
         this.popust = popust;
         this.trazeni_bodovi = trazeni_bodovi;
+    }
+
+    public TipKupca() {
+
     }
 
     @Override

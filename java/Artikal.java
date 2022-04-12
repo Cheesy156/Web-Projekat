@@ -1,21 +1,26 @@
 package vezbe.demo.model;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import java.io.Serial;
+import javax.persistence.*;
 import java.io.Serializable;
 
 enum vrstaArtikla{jelo, pice;}
 enum mera{grami, mililitri;}
 
+@Entity
 public class Artikal implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String naziv;
     private double cena;
     private vrstaArtikla vrstaArtikla;
     private int kolicina;
     private mera mera;
     private String opis;
+
+    @ManyToOne
+    @JoinColumn(name = "porudzbina_id")
+    private Porudzbina porudzbina;
 
     @ManyToOne
     @JoinColumn(name = "restoran_id")
@@ -28,6 +33,9 @@ public class Artikal implements Serializable {
         this.kolicina = kolicina;
         this.mera = mera;
         this.opis = opis;
+    }
+
+    public Artikal() {
     }
 
     public String getNaziv() {

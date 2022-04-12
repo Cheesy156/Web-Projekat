@@ -1,10 +1,26 @@
 package vezbe.demo.model;
 
-public class Komentar {
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity
+public class Komentar implements Serializable {
+    @Id
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "kupac_id")
     private Kupac kupac;
+
+    @OneToOne
+    @JoinColumn(name = "restoran_id")
     private Restoran restoran;
+
     private String tekst;
     private int ocena; // od 1 do 5
+
+    @OneToOne
+    @JoinColumn(name = "porudzbina_id")
     private Porudzbina porudzbina;
 
     public Komentar(Kupac kupac, Restoran restoran, String tekst, int ocena, Porudzbina porudzbina) {
@@ -13,6 +29,9 @@ public class Komentar {
         this.tekst = tekst;
         this.ocena = ocena;
         this.porudzbina = porudzbina;
+    }
+
+    public Komentar() {
     }
 
     public Kupac getKupac() {

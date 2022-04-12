@@ -1,3 +1,5 @@
 package vezbe.demo.model;
 
-public enum Uloga {Admin, Menadzer, Dostavljac, Kupac;}
+import java.io.Serializable;
+
+public enum Uloga implements Serializable {Admin, Menadzer, Dostavljac, Kupac;}

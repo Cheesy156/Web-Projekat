@@ -1,10 +1,13 @@
 package vezbe.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
 public class Restoran implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,15 +17,21 @@ public class Restoran implements Serializable {
 
     private String tipRestorana;
 
-    @OneToMany(mappedBy = "restoran", cascade = CascadeType.ALL) //brise sve artikle vezane za restoran ako se obrise restoran
+    @OneToMany(mappedBy = "restoran", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Artikal> artikli = new HashSet<>();
 
+    @OneToMany(mappedBy = "restoran", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Lokacija lokacija;
 
     public Restoran(String naziv, String tipRestorana, Lokacija lokacija) {
         this.naziv = naziv;
         this.tipRestorana = tipRestorana;
         this.lokacija = lokacija;
+    }
+
+    public Restoran() {
     }
 
     public String getNaziv() {
