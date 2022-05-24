@@ -28,4 +28,11 @@ public class KorisnikService {
     public Korisnik save(Korisnik korisnik){
         return korisnikRepository.save(korisnik);
     }
+
+    public Korisnik login(String username, String password) {
+        Korisnik korisnik = korisnikRepository.getByUsername(username);
+        if(korisnik == null || !korisnik.getLozinka().equals(password))
+            return null;
+        return korisnik;
+    }
 }

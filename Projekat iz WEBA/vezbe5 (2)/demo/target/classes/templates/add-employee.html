@@ -5,14 +5,14 @@
   <title>Employees</title>
 </head>
 <body>
-<form th:action="@{/save-employee}" th:object="${employee}" method="post">
-  <label for="firstName">First name:</label>
-  <input id="firstName" type="text" th:field="*{firstname}"/>
-  <label for="lastName">Last name:</label>
-  <input id="lastName" type="text" th:field="*{lastname}"/>
-  <label for="position">Position:</label>
-  <input id="position" type="text" th:field="*{position}"/>
-  <input type="submit">
-</form>
+  <form th:action="@{/save-employee}" th:object="${employee}" method="post">
+    <label for="firstName">First name:</label>
+    <input id="firstName" type="text" th:field="*{firstname}"/>
+    <label for="lastName">Last name:</label>
+    <input id="lastName" type="text" th:field="*{lastname}"/>
+    <label for="position">Position:</label>
+    <input id="position" type="text" th:field="*{position}"/>
+    <input type="submit">
+  </form>
 </body>
 </html>

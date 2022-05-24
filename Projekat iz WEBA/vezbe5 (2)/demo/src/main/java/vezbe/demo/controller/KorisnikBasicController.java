@@ -1,15 +1,15 @@
 package vezbe.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import vezbe.demo.dto.LoginDto;
 import vezbe.demo.model.Korisnik;
 import vezbe.demo.service.KorisnikService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -18,7 +18,36 @@ public class KorisnikBasicController {
     private KorisnikService korisnikService;
 
     @GetMapping ("/")
-    public String welcome() { return  "login.html"; }
+    public String home() { return  "redirect:/login-form"; }
+
+    @GetMapping("/login-form")
+    public String login(Model model){
+        LoginDto loginDto = new LoginDto();
+        model.addAttribute("login", loginDto);
+        return "login.html";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute LoginDto loginDto, HttpSession session){
+        if (loginDto.getUsername().isEmpty() || loginDto.getPassword().isEmpty())
+            return "redirect:/login-form";
+
+        Korisnik korisnik = korisnikService.login(loginDto.getUsername(), loginDto.getPassword());
+        if (korisnik == null)
+            return "redirect:/login-form";
+
+        session.setAttribute("korisnik", korisnik);
+        return "redirect:/hello";
+    }
+
+    @GetMapping("/hello")
+    public String welcome(){ return "index.html";}
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:login-form";
+    }
 
     @GetMapping ("/korisnici")
     public String getKorisnici(Model model){
