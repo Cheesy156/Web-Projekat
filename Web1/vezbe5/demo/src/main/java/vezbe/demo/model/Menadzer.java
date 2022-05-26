@@ -16,6 +16,10 @@ public class Menadzer extends Korisnik implements Serializable {
         this.restoran = restoran;
     }
 
+    public Menadzer(String username, String lozinka, String ime, String prezime, String pol, LocalDate datum_rodjenja, Uloga uloga) {
+        super(username, lozinka, ime, prezime, pol, datum_rodjenja, uloga);
+    }
+
     public Menadzer() {
     }
 

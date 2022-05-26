@@ -52,8 +52,8 @@ public class DatabaseConfiguration {
         artikalRepository.save(cezar_salata);
         Artikal bolonjeze = new Artikal("Bolonjeze", 260, VrstaArtikla.jelo, 300, Mera.grami, "Neke tamo bolonjeze sta znam");
         artikalRepository.save(bolonjeze);
-        Artikal ker = new Artikal("Kuca", 50000, VrstaArtikla.jelo, 12000, Mera.grami ,"Ovo je jako losa fora na koju nisam ponosan");
-        artikalRepository.save(ker);
+        Artikal becka = new Artikal("Becka", 50000, VrstaArtikla.jelo, 12000, Mera.grami ,"opis");
+        artikalRepository.save(becka);
 
         Dostavljac glovo = new Dostavljac("zutiglovo", "glovo", "Glovo", "Juzvic", "Muski", LocalDate.of(1999, 3, 22), Uloga.Dostavljac);
         dostavljacRepository.save(glovo);
@@ -85,7 +85,7 @@ public class DatabaseConfiguration {
         Set<Artikal> bahusJelovnik = new HashSet<>();
         bahusJelovnik.add(cezar_salata);
         Set<Artikal> hajdJelovnik = new HashSet<>();
-        hajdJelovnik.add(ker);
+        hajdJelovnik.add(becka);
         hajdJelovnik.add(bolonjeze);
 
         Restoran restoranBahus = new Restoran();
@@ -100,6 +100,8 @@ public class DatabaseConfiguration {
 
         Menadzer dusan = new Menadzer("pinki", "1234", "Dusan", "Pekic", "Muski", LocalDate.of(1998, 1, 3), Uloga.Menadzer, restoranBahus);
         menadzerRepository.save(dusan);
+        Menadzer dusan1 = new Menadzer("pinki1", "1234", "Dusan1", "Pekic1", "Muski", LocalDate.of(1998, 1, 3), Uloga.Menadzer);
+        menadzerRepository.save(dusan1);
 
         Komentar komentar = new Komentar();
         komentar.setKupac(tina);
@@ -114,6 +116,8 @@ public class DatabaseConfiguration {
         porudzbina.setRestoran(restoranBahus);
         porudzbinaRepository.save(porudzbina);
 
+        Korisnik admin = new Korisnik("admin", "admin", "ABC", "ABC", "Muski", LocalDate.of(1990, 1, 2), Uloga.Admin);
+        korisnikRepository.save(admin);
         return true;
     }
 }

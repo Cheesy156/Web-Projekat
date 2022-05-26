@@ -23,8 +23,10 @@ public class LoginRestController {
             return new ResponseEntity("Invalid login data", HttpStatus.BAD_REQUEST);
 
         Korisnik loggedKorisnik = korisnikService.login(loginDto.getUsername(), loginDto.getPassword());
+
+
         if (loggedKorisnik == null)
-            return new ResponseEntity<>("Korisnik ne postoji!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Pogresan username ili sifra!", HttpStatus.NOT_FOUND);
 
         session.setAttribute("korisnik", loggedKorisnik);
         return ResponseEntity.ok("Successfully logged in!");

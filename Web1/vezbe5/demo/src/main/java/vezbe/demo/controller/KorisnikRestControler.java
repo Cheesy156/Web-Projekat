@@ -17,7 +17,7 @@ public class KorisnikRestControler {
     private KorisnikService korisnikService;
 
     @GetMapping("/api/")
-    public String welcome() { return  "Hello from api!"; }
+    public String welcome() { return  "Welcome!"; }
 
     @GetMapping("/api/korisnici")
     public List<Korisnik> getKorisnici(){
@@ -30,11 +30,5 @@ public class KorisnikRestControler {
     public Korisnik getKorisnik(@PathVariable(name = "id") Long id){
         Korisnik korisnik = korisnikService.findOne(id);
         return korisnik;
-    }
-
-    @PostMapping("/api/save-korisnik")
-    public String saveKorisnik(@RequestBody Korisnik korisnik) {
-        this.korisnikService.save(korisnik);
-        return "Korisnik sacuvan";
     }
 }
