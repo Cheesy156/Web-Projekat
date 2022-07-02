@@ -19,6 +19,7 @@ public class KorisnikRestControler {
     @GetMapping("/api/")
     public String welcome() { return  "Welcome!"; }
 
+    /*
     @GetMapping("/api/korisnici")
     public List<Korisnik> getKorisnici(){
         List<Korisnik> korisnikList = korisnikService.findAll();
@@ -31,4 +32,5 @@ public class KorisnikRestControler {
         Korisnik korisnik = korisnikService.findOne(id);
         return korisnik;
     }
+    */
 }

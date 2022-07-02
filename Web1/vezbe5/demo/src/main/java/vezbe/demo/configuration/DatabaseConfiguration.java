@@ -50,7 +50,7 @@ public class DatabaseConfiguration {
 
         Artikal cezar_salata = new Artikal("Cezar salata", 320, VrstaArtikla.jelo, 250, Mera.grami, "Cezar licno napravio salatu");
         artikalRepository.save(cezar_salata);
-        Artikal bolonjeze = new Artikal("Bolonjeze", 260, VrstaArtikla.jelo, 300, Mera.grami, "Neke tamo bolonjeze sta znam");
+        Artikal bolonjeze = new Artikal("Bolonjeze", 260, VrstaArtikla.pice, 300, Mera.miligrami, "Neke tamo bolonjeze sta znam");
         artikalRepository.save(bolonjeze);
         Artikal becka = new Artikal("Becka", 50000, VrstaArtikla.jelo, 12000, Mera.grami ,"opis");
         artikalRepository.save(becka);
@@ -83,19 +83,26 @@ public class DatabaseConfiguration {
         lokacijaRepository.save(hajd);
 
         Set<Artikal> bahusJelovnik = new HashSet<>();
+        artikalRepository.saveAll(bahusJelovnik);
         bahusJelovnik.add(cezar_salata);
+        artikalRepository.saveAll(bahusJelovnik);
+
         Set<Artikal> hajdJelovnik = new HashSet<>();
+        artikalRepository.saveAll(hajdJelovnik);
         hajdJelovnik.add(becka);
         hajdJelovnik.add(bolonjeze);
+        artikalRepository.saveAll(hajdJelovnik);
+
 
         Restoran restoranBahus = new Restoran();
         restoranBahus.setNaziv("Bahus");
         restoranBahus.setTipRestorana("srpski");
         restoranBahus.setLokacija(bahus);
         restoranBahus.setArtikli(bahusJelovnik);
+        restoranBahus.setStatusRestorana(StatusRestorana.radi);
         restoranRepository.save(restoranBahus);
 
-        Restoran restoranHajd = new Restoran("Hajd", "italijanski", hajdJelovnik, hajd);
+        Restoran restoranHajd = new Restoran("Hajd", "italijanski", hajdJelovnik, hajd, StatusRestorana.ne_radi);
         restoranRepository.save(restoranHajd);
 
         Menadzer dusan = new Menadzer("pinki", "1234", "Dusan", "Pekic", "Muski", LocalDate.of(1998, 1, 3), Uloga.Menadzer, restoranBahus);
@@ -110,10 +117,15 @@ public class DatabaseConfiguration {
         komentar.setOcena(1);
         komentarRepository.save(komentar);
 
-        Porudzbina porudzbina = new Porudzbina(LocalDateTime.now(), 0, Status.u_pripremi);
-        porudzbina.setPoruceni_Artikli(bahusJelovnik);
+        Porudzbina porudzbina = new Porudzbina(LocalDateTime.now(), 0, Status.ceka_dostavljaca);
+        PoruceniArtikli poruceniArtikli = new PoruceniArtikli(porudzbina, becka, 3, becka.getCena()*3);
+        PoruceniArtikli poruceniArtikli2 = new PoruceniArtikli(porudzbina, cezar_salata, 1, cezar_salata.getCena()*1);
+        porudzbina.setPoruceni_Artikli(Set.of(poruceniArtikli, poruceniArtikli2));
         porudzbina.setKupac(jana);
         porudzbina.setRestoran(restoranBahus);
+        porudzbina.setDostavljac(mrd);
+        porudzbina.setDatumPorudzbine(LocalDateTime.now());
+        porudzbina.setCena(poruceniArtikli.getUkupnaCena()+poruceniArtikli.getUkupnaCena());
         porudzbinaRepository.save(porudzbina);
 
         Korisnik admin = new Korisnik("admin", "admin", "ABC", "ABC", "Muski", LocalDate.of(1990, 1, 2), Uloga.Admin);

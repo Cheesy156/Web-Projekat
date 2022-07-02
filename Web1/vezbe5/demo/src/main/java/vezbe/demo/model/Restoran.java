@@ -1,7 +1,5 @@
 package vezbe.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -13,12 +11,16 @@ public class Restoran implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private StatusRestorana statusRestorana;
+
     private String naziv;
 
     private String tipRestorana;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name="restoran_id")
+    @ManyToMany
+    @JoinTable(name = "RestoranArtikli",
+            joinColumns = @JoinColumn(name = "restoran_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "artikal_id", referencedColumnName = "id"))
     private Set<Artikal> artikli = new HashSet<>();
 
     @OneToMany(mappedBy = "restoran", fetch = FetchType.LAZY)
@@ -27,20 +29,32 @@ public class Restoran implements Serializable {
     @OneToOne
     private Lokacija lokacija;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Menadzer menadzer;
+
     public Restoran() {
     }
 
-    public Restoran(String naziv, String tipRestorana, Set<Artikal> artikli, Lokacija lokacija) {
+    public Restoran(String naziv, String tipRestorana, Set<Artikal> artikli, Lokacija lokacija, StatusRestorana statusRestorana) {
         this.naziv = naziv;
         this.tipRestorana = tipRestorana;
         this.artikli = artikli;
         this.lokacija = lokacija;
+        this.statusRestorana = statusRestorana;
     }
 
     public Restoran(String naziv, String tipRestorana, Lokacija lokacija) {
         this.naziv = naziv;
         this.tipRestorana = tipRestorana;
         this.lokacija = lokacija;
+    }
+
+    public Menadzer getMenadzer() {
+        return menadzer;
+    }
+
+    public void setMenadzer(Menadzer menadzer) {
+        this.menadzer = menadzer;
     }
 
     public Long getId() {
@@ -90,4 +104,8 @@ public class Restoran implements Serializable {
     public void setKomentari(Set<Komentar> komentari) {
         this.komentari = komentari;
     }
+
+    public StatusRestorana getStatusRestorana() { return statusRestorana; }
+
+    public void setStatusRestorana(StatusRestorana statusRestorana) { this.statusRestorana = statusRestorana; }
 }

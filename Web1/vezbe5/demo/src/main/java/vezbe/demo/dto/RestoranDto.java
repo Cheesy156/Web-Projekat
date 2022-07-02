@@ -27,10 +27,11 @@ public class RestoranDto {
     }
 
     // za prikaz svih restorana :/
-    public RestoranDto(String naziv, String tipRestorana, Lokacija lokacija) {
-        this.naziv = naziv;
-        this.tipRestorana = tipRestorana;
-        this.lokacija = lokacija;
+    public RestoranDto(Restoran restoran) {
+        this.naziv = restoran.getNaziv();
+        this.tipRestorana = restoran.getTipRestorana();
+        this.lokacija = restoran.getLokacija();
+        this.artikli = restoran.getArtikli();
     }
 
     public RestoranDto(String naziv, String tipRestorana, double geografskaDuzina, double geografskaSirina, String adresa, String menadzer) {

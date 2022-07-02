@@ -12,10 +12,10 @@ import java.util.UUID;
 @Entity
 public class Porudzbina implements Serializable {
     @Id
-    private String uniqueID = UUID.randomUUID().toString(); // uid type
+    private UUID uniqueID = UUID.randomUUID(); // uid type
 
     @OneToMany(mappedBy = "porudzbina",fetch = FetchType.LAZY, cascade = CascadeType.ALL) //artikli
-    private Set<Artikal> poruceni_Artikli = new HashSet<>();
+    private Set<PoruceniArtikli> poruceni_Artikli = new HashSet<>();
 
     @ManyToOne (fetch = FetchType.EAGER)
     @JoinColumn(name = "restoran_id")//restoran
@@ -33,6 +33,8 @@ public class Porudzbina implements Serializable {
 
     private Status status;
 
+    private LocalDateTime datumPorudzbine;
+
     public Porudzbina() {
     }
 
@@ -42,12 +44,22 @@ public class Porudzbina implements Serializable {
         this.status = status;
     }
 
-    public Set<Artikal> getPoruceni_Artikli() {
+    public Set<PoruceniArtikli> getPoruceni_Artikli() {
         return poruceni_Artikli;
     }
 
-    public void setPoruceni_Artikli(Set<Artikal> poruceni_Artikli) {
+    public void setPoruceni_Artikli(Set<PoruceniArtikli> poruceni_Artikli) {
         this.poruceni_Artikli = poruceni_Artikli;
+    }
+
+    public void addPoruceni_Artikli(PoruceniArtikli poruceni_Artikli) { this.poruceni_Artikli.add(poruceni_Artikli);}
+
+    public Dostavljac getDostavljac() {
+        return dostavljac;
+    }
+
+    public void setDostavljac(Dostavljac dostavljac) {
+        this.dostavljac = dostavljac;
     }
 
     public Restoran getRestoran() {
@@ -90,11 +102,19 @@ public class Porudzbina implements Serializable {
         this.status = status;
     }
 
-    public String getUniqueID() {
+    public UUID getUniqueID() {
         return uniqueID;
     }
 
-    public void setUniqueID(String uniqueID) {
+    public void setUniqueID(UUID uniqueID) {
         this.uniqueID = uniqueID;
+    }
+
+    public LocalDateTime getDatumPorudzbine() {
+        return datumPorudzbine;
+    }
+
+    public void setDatumPorudzbine(LocalDateTime datumPorudzbine) {
+        this.datumPorudzbine = datumPorudzbine;
     }
 }

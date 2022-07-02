@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 public class Menadzer extends Korisnik implements Serializable {
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restoran_id")
     private Restoran restoran;
 

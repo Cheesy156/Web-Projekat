@@ -1,23 +1,11 @@
 package vezbe.demo.dto;
 
-import vezbe.demo.model.Admin;
 import vezbe.demo.model.Korisnik;
 import vezbe.demo.model.Uloga;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.time.LocalDate;
-import java.util.Date;
 
-public class AdminDto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-
-    @Column(unique = true)
+public class KorisnikDto {
     private String username;
 
     private String lozinka;
@@ -29,10 +17,10 @@ public class AdminDto {
     private LocalDate datum_rodjenja;
     private Uloga uloga;
 
-    public AdminDto() {
+    public KorisnikDto() {
     }
 
-    public AdminDto(String username, String lozinka, String ime, String prezime, String pol, LocalDate datum_rodjenja, Uloga uloga) {
+    public KorisnikDto(String username, String lozinka, String ime, String prezime, String pol, LocalDate datum_rodjenja, Uloga uloga) {
         this.username = username;
         this.lozinka = lozinka;
         this.ime = ime;
@@ -42,22 +30,16 @@ public class AdminDto {
         this.uloga = uloga;
     }
 
-    public AdminDto(Long id, String username, String lozinka, String ime, String prezime, String pol) {
-        this.id = id;
-        this.username = username;
-        this.lozinka = lozinka;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.pol = pol;
+    public KorisnikDto(Korisnik k){
+        this.username = k.getUsername();
+        this.lozinka = k.getLozinka();
+        this.ime = k.getIme();
+        this.prezime = k.getPrezime();
+        this.pol = k.getPol();
+        this.datum_rodjenja = k.getDatum_rodjenja();
+        this.uloga = k.getUloga();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
